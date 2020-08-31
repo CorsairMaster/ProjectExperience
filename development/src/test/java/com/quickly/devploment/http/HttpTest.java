@@ -1,11 +1,17 @@
 package com.quickly.devploment.http;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -68,8 +74,41 @@ public class HttpTest {
 			throw new RuntimeException("get local inet address fail", var4);
 		}
 		log.info("inetAddressList --> {}", inetAddressList);
+	}
 
+	@Test
+	public void testHttpGet(){
+//		HttpHost proxy = new HttpHost("127.0.0.1", 9876, "HTTP");
+		CloseableHttpClient httpclient = HttpClients.createDefault();
+		HttpGet request = new HttpGet("https://www.soshuw.com/ZheTian/395054.html");
+		try {
+			CloseableHttpResponse response = httpclient.execute(request);
+			HttpEntity responseEntity = response.getEntity();
+			String resultJson = EntityUtils.toString(responseEntity, "UTF-8");
+			log.info("response {}", resultJson);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	@Test
+	public void testHttpGetByJsoup(){
+		String index = "5055";
+		String url = "https://www.soshuw.com/ZheTian/39"+index+".html";
+		Connection connect = Jsoup.connect(url);
+		try {
+			Document document = connect.get();
+			Elements content = document.getElementsByClass("content");
+			String text = content.toString().replaceAll("&nbsp;","").replaceAll("<br>", " ");
+			String substring = text.substring(0, text.indexOf("<p"));
+			//			String text = content.text();
+//						log.info("document {}", document.toString());
+//			log.info("content {}", content.toString());
+//			log.info("text {}", text);
+			log.info("substring {}", substring);
 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 }
