@@ -52,12 +52,13 @@ public class ListNode {
 		//		System.out.println(or.toString());
 		//	}
 
-		int terms = 12;
+		int terms = 3;
 
 		Date dateTime = new Date();
+
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(dateTime);
-		calendar.set(Calendar.DAY_OF_MONTH,28);
+		calendar.set(Calendar.DAY_OF_MONTH,12);
 		int date = calendar.get(Calendar.DAY_OF_MONTH);
 		int month = calendar.get(Calendar.MONTH) + 1;
 		int year = calendar.get(Calendar.YEAR);
@@ -65,18 +66,18 @@ public class ListNode {
 		log.info("还款月 {}" , month);
 		log.info("还款年 {}" , year);
 
-		calendar.set(Calendar.MONTH, month+terms);
+		calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH)+terms);
 		date = calendar.get(Calendar.DAY_OF_MONTH);
-		month = calendar.get(Calendar.MONTH);
+		month = calendar.get(Calendar.MONTH)+1;
 		year = calendar.get(Calendar.YEAR);
 		log.info("还款日 {}" , date);
 		log.info("还款月 {}" , month);
 		log.info("还款年 {}" , year);
 
-		Calendar calendar1 = Calendar.getInstance();
-		log.info("year {}",calendar1.get(Calendar.YEAR)+"");
-		log.info("year {}",(calendar1.get(Calendar.MONTH) + 1) + "");
-		log.info("year {}",calendar1.get(Calendar.DAY_OF_MONTH) +1+"");
+//		Calendar calendar1 = Calendar.getInstance();
+//		log.info("year {}",calendar1.get(Calendar.YEAR)+"");
+//		log.info("year {}",(calendar1.get(Calendar.MONTH) + 1) + "");
+//		log.info("year {}",calendar1.get(Calendar.DAY_OF_MONTH) +1+"");
 
 
 
