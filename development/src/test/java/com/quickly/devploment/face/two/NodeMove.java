@@ -1,6 +1,10 @@
 package com.quickly.devploment.face.two;
 
 
+import org.junit.Test;
+
+import java.io.*;
+
 /**
  * @Author lidengjin
  * @Date 2020/7/31 2:14 下午
@@ -81,6 +85,16 @@ public class NodeMove {
 			}
 			res.append("NULL");
 			return res.toString();
+		}
+	}
+
+	@Test
+	public void testFilePath(){
+		File file = new File("/Users/lidengjin/study/theSourceOfCloud/java/TuLingSource/图灵三期/代码/rocket_mq_all/rocketmq-rocketmq-all-4.3.2/distribution/conf/broker.conf");
+		try {
+			InputStream in = new BufferedInputStream(new FileInputStream(file));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 }
