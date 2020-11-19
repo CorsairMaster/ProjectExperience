@@ -4,6 +4,7 @@ import org.apache.commons.lang3.RandomUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @Author lidengjin
@@ -23,7 +24,7 @@ public class DrawDemo {
 	private static void init() {
 		students = new ArrayList<>();
 		groupDraws = new ArrayList<>();
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 25; i++) {
 			Student student = new Student();
 			student.setName("name_" + i);
 			students.add(student);
@@ -55,8 +56,19 @@ public class DrawDemo {
 		groupDraws.add(groupDraw);
 	}
 
+	static AtomicInteger atomicInteger = new AtomicInteger(0);
+
 	public static void main(String[] args) {
+
 		students.stream().forEach(student -> {
+			int i = atomicInteger.incrementAndGet();
+			Integer integer = groupDraws.stream().map(GroupDraw::getLimitStudent).reduce((a, b) -> {
+				return a + b;
+			}).get();
+			if (i > integer) {
+				System.out.println(" 当前学生 大于总共分组人数 ---student" + student.getName());
+				return;
+			}
 			group(student, groupDraws);
 		});
 
@@ -68,12 +80,16 @@ public class DrawDemo {
 	}
 
 	private static void group(Student student, List<GroupDraw> groupDraws) {
+		if (groupDraws.size() <= 0) {
+			System.out.println("组已经没有名额了");
+			return;
+		}
 		ArrayList<GroupDraw> dymGroupDraws = new ArrayList<>(groupDraws);
 		GroupDraw groupDraw = dymGroupDraws.get(RandomUtils.nextInt(0, groupDraws.size()));
 		int limitStudent = groupDraw.getLimitStudent();
 		int currentStudent = groupDraw.getCurrentStudent();
 		if (currentStudent >= limitStudent) {
-			System.out.println("改组已满 " + groupDraw.getDrawName() + "_" + groupDraw.getGroupNum() + "_" + groupDraw
+			System.out.println("该组已满 " + groupDraw.getDrawName() + "_" + groupDraw.getGroupNum() + "_" + groupDraw
 					.getCurrentStudent());
 			// 重新选组
 			dymGroupDraws.remove(groupDraw);

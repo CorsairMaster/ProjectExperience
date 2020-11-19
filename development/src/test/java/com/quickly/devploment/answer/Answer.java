@@ -1,6 +1,7 @@
 package com.quickly.devploment.answer;
 
 import com.quickly.devploment.pojo.UserPojo;
+import com.quickly.devploment.utils.MathUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -494,5 +495,16 @@ public class Answer {
 		System.out.println(bigDecimal);
 		BigDecimal divide = bigDecimal.divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
 		System.out.println(divide);
+	}
+
+	@Test
+	public void testBigDecimalRate(){
+//		BigDecimal basic = new BigDecimal("100");
+		String feeRate = "0.9914";
+		BigDecimal divide = new BigDecimal(feeRate);
+		BigDecimal multiply = divide.multiply(new BigDecimal("100.25"));
+		System.out.println("原始 "+multiply);
+		BigDecimal half = MathUtil.round(multiply);
+		System.out.println("四舍五入 "+half);
 	}
 }

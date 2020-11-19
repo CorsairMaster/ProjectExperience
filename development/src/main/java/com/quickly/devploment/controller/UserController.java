@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 
 /**
- * @ClassName UserController
+ * @ClassName UserController-用户服务
  * @Description
  * @Author LiDengJin
  * @Date 2019/9/30 11:11
@@ -23,9 +23,9 @@ public class UserController {
 	private UserService userService;
 
 	/**
-	 *  获取用户名称
-	 * @param name
-	 * @return
+	 *  获取用户名称 根据用户名
+	 * @param name 用户名
+	 * @return 用户名+时间
 	 */
 	@RequestMapping("/getusername")
 	@ResponseBody
@@ -34,6 +34,11 @@ public class UserController {
 		return userService.getName(name);
 	}
 
+	/**
+	 * 插入用户
+	 * @param name 用户名
+	 * @return 保存的用户
+	 */
 	@RequestMapping("/insertuser")
 	@ResponseBody
 	public String saveUser(String name){

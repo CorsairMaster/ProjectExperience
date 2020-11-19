@@ -8,11 +8,30 @@ package com.quickly.devploment.pojo;
  * @Version V-1.0
  **/
 public class StudentPojo {
+
+	/**
+	 * 学生id
+	 */
 	private int s_id;
+	/**
+	 * 学生编号
+	 */
 	private int sno;
+	/**
+	 * 学生姓名
+	 */
 	private String sname;
+	/**
+	 * 学生年龄
+	 */
 	private int sage;
+	/**
+	 * 学生性别
+	 */
 	private String ssex;
+	/**
+	 * 双亲
+	 */
 	private int father_id;
 	private int mather_id;
 	private String note;

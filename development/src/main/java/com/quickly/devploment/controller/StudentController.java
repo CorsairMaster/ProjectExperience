@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @ClassName UserController
+ * @ClassName UserController 用户服务
  * @Description
  * @Author LiDengJin
  * @Date 2019/9/30 11:11
@@ -24,9 +24,11 @@ public class StudentController {
 	private StudentService studentService;
 
 	/**
-	 *  获取用户名称
-	 * @param
-	 * @return
+	 *  用户服务-获取所有的用户
+	 *
+	 * @param pageNum 当前页数
+	 * @param pageSize 页数大小
+	 * @return 用户集合
 	 */
 	@RequestMapping("/getAllstudent")
 	@ResponseBody
@@ -37,6 +39,14 @@ public class StudentController {
 	}
 
 
+	/**
+	 * 获取所有的学生ByStream controller
+	 *
+	 * 有jvm 的服务
+	 * @param pageNum
+	 * @param pageSize
+	 * @return 学生用户集合
+	 */
 	@RequestMapping("/getAllstudentByStream")
 	@ResponseBody
 	public List<StudentPojo> getAllStudentByStream(Integer pageNum,Integer pageSize){
@@ -45,6 +55,11 @@ public class StudentController {
 		return studentService.geuAllStudentPojoByStream(pageNum,pageSize);
 	}
 
+	/**
+	 *  测试demo
+	 * @param name 学生名
+	 * @return 学生名的hello + date
+	 */
 	@RequestMapping("/test")
 	@ResponseBody
 	public String getAllStudentByStreamByTest(String name){
