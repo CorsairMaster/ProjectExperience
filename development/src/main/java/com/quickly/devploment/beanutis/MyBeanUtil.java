@@ -26,4 +26,6 @@ public class MyBeanUtil implements ApplicationContextAware {
 	public static ApplicationContext getContext(){
 		return context;
 	}
+
+	// 测试 merge singe file
 }
