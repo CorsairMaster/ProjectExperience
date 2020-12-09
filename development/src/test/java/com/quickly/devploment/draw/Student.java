@@ -42,6 +42,7 @@ public class Student {
 
 	@Override
 	public String toString() {
-		return "Student{" + "name='" + name + '\'' + ", group=" + group + ", groupDraw=" + groupDraw.getDrawName() + '}';
+//		return "Student{" + "name='" + name + '\'' + ", group=" + group + ", groupDraw=" + groupDraw.getDrawName() + '}';
+		return "Student{" + "name='" + name + '\'' + ", group=" + group + ", groupDraw=" ;
 	}
 }

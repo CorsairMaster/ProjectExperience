@@ -1,5 +1,8 @@
 package com.quickly.devploment.answer;
 
+import com.alibaba.fastjson.JSON;
+import com.quickly.devploment.answer.repos.DebitBean;
+import com.quickly.devploment.draw.Student;
 import com.quickly.devploment.pojo.UserPojo;
 import com.quickly.devploment.utils.MathUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +11,7 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName Answer
@@ -40,7 +44,8 @@ public class Answer {
 		//		}
 
 //		testBigInteger();
-		testRemoveList();
+//		testRemoveList();
+
 	}
 
 	private static void testRemoveList() {
@@ -490,11 +495,14 @@ public class Answer {
 
 	@Test
 	public void testBigDecimal(){
-		int amount = 100698;
-		BigDecimal bigDecimal = new BigDecimal(amount);
+//		int amount = 100698;
+//		BigDecimal bigDecimal = new BigDecimal(amount);
+//		System.out.println(bigDecimal);
+//		BigDecimal divide = bigDecimal.divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
+//		System.out.println(divide);
+		List<BigDecimal> bigDecimals = Arrays.asList(new BigDecimal("10"), new BigDecimal("40"));
+		BigDecimal bigDecimal = bigDecimals.stream().reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
 		System.out.println(bigDecimal);
-		BigDecimal divide = bigDecimal.divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
-		System.out.println(divide);
 	}
 
 	@Test
@@ -506,5 +514,69 @@ public class Answer {
 		System.out.println("原始 "+multiply);
 		BigDecimal half = MathUtil.round(multiply);
 		System.out.println("四舍五入 "+half);
+
+		System.out.println(BigDecimal.ZERO.multiply(half));
 	}
+
+	@Test
+	public void testAddStudent(){
+		List<Student> list = new ArrayList<>();
+		Student student = new Student();
+		student.setGroup(1);
+		student.setName("222");
+		list.add(student);
+		student.setName("333");
+		student.setGroup(4);
+		list.add(student);
+		log.info("list {}", list);
+	}
+
+	@Test
+	public void testOverAndNormal(){
+		DebitBean debitBean = new DebitBean();
+		debitBean.setDebitName("debit1");
+		debitBean.setGraceDate(10);
+		debitBean.setMustPayDate(7);
+		debitBean.setStage(1);
+
+		DebitBean debitBean2 = new DebitBean();
+		debitBean2.setDebitName("debit2");
+		debitBean2.setGraceDate(50);
+		debitBean2.setMustPayDate(47);
+		debitBean2.setStage(2);
+
+		List<DebitBean> debitBeans = Arrays.asList(debitBean, debitBean2);
+
+		List<DebitBean> sortDebitBeans = debitBeans.stream().sorted(Comparator.comparing(DebitBean::getStage)).collect(
+				Collectors.toList());
+		System.out.println(JSON.toJSONString(sortDebitBeans));
+		sortDebitBeans.stream().forEach(debitBean1 -> {
+			debitBean1.setDebitName("name----1111");
+		});
+		System.out.println(JSON.toJSONString(sortDebitBeans));
+		int currentDate = 47;
+		DebitBean firstDebitBean = sortDebitBeans.stream().findFirst().orElse(null);
+
+//		if(currentDate < firstDebitBean.getMustPayDate() ){
+//			System.out.println("提前结清--");
+//		}else if(currentDate == firstDebitBean.getMustPayDate()){
+//			System.out.println("账单日还款--正常还款");
+//		}else {
+//			// 判断宽限期 ,只要有一个债务存在于宽限期之间，那么就是正常还款。
+//			if (sortDebitBeans.stream()
+//					.anyMatch(debitBean3 -> currentDate <= debitBean3.getGraceDate())) {
+//				System.out.println("正常还款---在宽限期内");
+//			}else {
+//				System.out.println("逾期还款---");
+//			}
+//
+//		}
+
+
+
+
+	}
+
+
 }
+
