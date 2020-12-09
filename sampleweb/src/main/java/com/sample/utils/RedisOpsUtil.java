@@ -10,16 +10,16 @@ import java.util.concurrent.TimeUnit;
  * @Date 2020/11/19 3:39 下午
  * @Version 1.0
  */
-public class RedisOpsUtil {
+public class RedisOpsUtil<T> {
 
 	@Autowired
 	private RedisTemplate redisTemplate;
 
-	public void set(String key,Object value){
+	public void set(String key,T value){
 		redisTemplate.opsForValue().set(key,value);
 	}
 
-	public void set(String key, Object value, long timeout, TimeUnit unit){
+	public void set(String key, T value, long timeout, TimeUnit unit){
 		redisTemplate.opsForValue().set(key,value,timeout,unit);
 	}
 
