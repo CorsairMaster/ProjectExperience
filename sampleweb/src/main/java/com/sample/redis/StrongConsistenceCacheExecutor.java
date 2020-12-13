@@ -30,10 +30,10 @@ public class StrongConsistenceCacheExecutor<T> {
 	/**
 	 * <p>
 	 * write request--> try lock--> delete cache --> write db --> write cache --> unlock
-	 * + | | | | ↑
-	 * + | fail | fail | fail | fail |
-	 * + | | | | |
-	 * + return |------------|------------|----------------|
+	 * +                     |            |            |            |                ↑
+	 * +                     | fail       | fail       | fail       | fail           |
+	 * +                     |            |            |            |                |
+	 * +                  return          |------------|------------|----------------|
 	 * </p>
 	 */
 	public T write(String key, long ttl, DbDataWriter<T> dbDataWriter) {
@@ -53,10 +53,10 @@ public class StrongConsistenceCacheExecutor<T> {
 	/**
 	 * <p>
 	 * read request-->read cache -fail-> read db --> try lock --> write cache --> unlock
-	 * + | | | | ↑
-	 * + | success | fail | fail | fail |
-	 * + | | | | |
-	 * + return return return |----------------|
+	 * +                     |             |            |            |                ↑
+	 * +                     | success     | fail       | fail       | fail           |
+	 * +                     |             |            |            |                |
+	 * +                   return        return      return          |----------------|
 	 * </p>
 	 */
 	public T read(String key, long ttl, Class<T> clazz, DbDataReader<T> dbDataReader) {
