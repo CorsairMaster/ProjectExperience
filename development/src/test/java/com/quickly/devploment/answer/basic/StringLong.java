@@ -17,4 +17,14 @@ public class StringLong {
 		String s = "hello";
 		s = "world";
 	}
+
+	@Test
+	public void testSubstring(){
+//		String path = "jar:file:/Users/lidengjin/study/sourceofgithub/mygithub/ProjectExperience/sampleweb/target/sampleweb-1.0-SNAPSHOT.jar!/BOOT-INF/classes!/static/WebsocketDanMu.html";
+		String path = "file:/Users/lidengjin/study/sourceofgithub/mygithub/ProjectExperience/sampleweb/target/sampleweb-1.0-SNAPSHOT.jar!/BOOT-INF/classes!/static/WebsocketDanMu.html";
+		String subString = !path.contains("file:") ? path : path.substring(path.indexOf("/"));
+		System.out.println(subString);
+//		int i = path.indexOf("/");
+//		System.out.println(i);
+	}
 }

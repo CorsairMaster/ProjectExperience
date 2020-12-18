@@ -7,6 +7,7 @@
     <groupId>org.example</groupId>
     <artifactId>sampleweb</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -80,9 +81,31 @@
             <artifactId>lombok</artifactId>
             <version>1.18.2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.netty/netty-all 弹幕系统-->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.19.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
     </dependencies>
 
     <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
         <resources>
             <resource>
                 <directory>src/main/java</directory>
