@@ -1,6 +1,8 @@
 server:
   port: 9999
 spring:
+  resources:
+    static-locations: classpath:static/
   redis:
     host: 120.78.140.235
     port: 6379
